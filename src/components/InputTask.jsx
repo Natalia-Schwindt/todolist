@@ -2,12 +2,11 @@ import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { useState } from "react";
 
 const InputTask = () => {
-
      const [show, setShow] = useState(false);
      const handleClick = () => setShow(!show);
 
     return (
-      <InputGroup size="md">
+      <InputGroup size="md"  w="100%">
         <Input
           pr="4.5rem"
           type={"text"}
