@@ -1,4 +1,5 @@
-import { Box, VStack, HStack, Text, Heading } from "@chakra-ui/react";
+import { Box, VStack, HStack, Stack, Text, Heading, IconButton } from "@chakra-ui/react";
+import { CheckIcon, DeleteIcon } from "@chakra-ui/icons";
 import InputTask from "./InputTask";
 import FilterTask from "./FilterTask";
 
@@ -6,10 +7,16 @@ const TodoList = () => {
   return (
     <VStack minH="100vh" w="100%" spacing={12} p={4}>
       <Heading as="h1" fontSize="6xl" color="teal" textAlign="center">Todo List</Heading>
-      <HStack spacing={4} w="60%" justifyContent="center">
+      <Stack
+        spacing={4}
+        w="60%"
+        direction={{ base: "column", md: "row" }} // Cambia a fila en pantallas medianas
+        justifyContent="center"
+        alignItems="center"
+      >
         <InputTask />
         <FilterTask />
-      </HStack>
+      </Stack>
       <Box
         bg="gray.100"
         p={4}
@@ -24,10 +31,42 @@ const TodoList = () => {
         <VStack spacing={4} align="stretch">
           {/* Aquí van los ítems de las tareas */}
           <Box bg="white" p={4} borderRadius="md" shadow="sm">
-            Una Tarea
+            <HStack justifyContent="space-between">
+              <Text>Una Tarea</Text>
+              <HStack>
+                <IconButton
+                  aria-label="Marcar como completada"
+                  icon={<CheckIcon />}
+                  size="sm"
+                  colorScheme="green"
+                />
+                <IconButton
+                  aria-label="Eliminar tarea"
+                  icon={<DeleteIcon />}
+                  size="sm"
+                  colorScheme="red"
+                />
+              </HStack>
+            </HStack>
           </Box>
           <Box bg="white" p={4} borderRadius="md" shadow="sm">
-            Otra Tarea
+            <HStack justifyContent="space-between">
+              <Text>Otra Tarea</Text>
+              <HStack>
+                <IconButton
+                  aria-label="Marcar como completada"
+                  icon={<CheckIcon />}
+                  size="sm"
+                  colorScheme="green"
+                />
+                <IconButton
+                  aria-label="Eliminar tarea"
+                  icon={<DeleteIcon />}
+                  size="sm"
+                  colorScheme="red"
+                />
+              </HStack>
+            </HStack>
           </Box>
         </VStack>
       </Box>
