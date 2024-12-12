@@ -1,5 +1,16 @@
 import { useState, useEffect } from "react";
-import { Box, VStack, HStack, Stack, Text, Heading, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  VStack,
+  HStack,
+  Stack,
+  Text,
+  Heading,
+  IconButton,
+  Editable,
+  EditableInput,
+  EditablePreview,
+} from "@chakra-ui/react";
 import { CheckIcon, DeleteIcon } from "@chakra-ui/icons";
 import InputTask from "./InputTask";
 import FilterTask from "./FilterTask";
@@ -40,6 +51,18 @@ const TodoList = () => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
+  const updateTaskText = (id, newText) => {
+    if (newText === "") return; // Salir si el texto está vacio
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              text: newText } :task
+      )
+    );
+  };
+
   const filteredTasks = tasks.filter((task) => {
     if (filter === "completas") return task.completed;
     if (filter === "incompletas") return !task.completed;
@@ -61,7 +84,14 @@ const TodoList = () => {
         <InputTask addTask={addTask} />
         <FilterTask filter={filter} setFilter={setFilter} />
       </Stack>
-      <Box bg="gray.100" p={4} borderRadius="md" shadow="md" w="100%" maxW="600px">
+      <Box
+        bg="gray.100"
+        p={4}
+        borderRadius="md"
+        shadow="md"
+        w="100%"
+        maxW="600px"
+      >
         <Text fontSize="2xl" fontWeight="bold" mb={4} color="teal">
           Lista de Tareas
         </Text>
@@ -69,12 +99,23 @@ const TodoList = () => {
           {filteredTasks.map((task) => (
             <Box key={task.id} bg="white" p={4} borderRadius="md" shadow="sm">
               <HStack justifyContent="space-between">
-                <Text
-                  textDecoration={task.completed ? "line-through" : "none"}
-                  color={task.completed ? "gray.500" : "black"}
-                >
-                  {task.text}
-                </Text>
+                <Editable
+                  defaultValue={task.text}
+                  onSubmit={(newText) => {
+                    if (newText.trim() === "") {
+                      // Restablece el texto al valor original si está vacío
+                      alert("El texto no puede estar vacío. Se restaurará el valor anterior.");
+                      return;
+                    }
+                    updateTaskText(task.id, newText);
+                  }}
+                  >
+                  <EditablePreview
+                    textDecoration={task.completed ? "line-through" : "none"}
+                    color={task.completed ? "gray.500" : "black"}
+                  />
+                  <EditableInput />
+                </Editable>
                 <HStack>
                   <IconButton
                     aria-label="Marcar como completada"
