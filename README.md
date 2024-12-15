@@ -82,4 +82,4 @@ Editar tarea
 Para probar mi App, y no olvides realizar tareas importantes, puedes hacerlo según los pasos detallados más arriba.
 Te dejo el link para que puedas empezar ahora mismo a ordenar tus pendientes!
 
-https://deploy-preview-2--todolist-natalia2024.netlify.app/
+https://todolist-natalia2024.netlify.app/
